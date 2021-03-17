@@ -1,0 +1,20 @@
+
+ <table class="table table-striped table-hover">
+    <thead>
+        <tr >
+            <th *ngFor="let colName of columnsName" scope="col"> {{colName}}</th> 
+    
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of data">
+            <th scope="row"> {{item.id}} </th>
+            <td *ngFor="let colvar of columnsVariable">
+                 {{item[colvar]}} 
+            </td> 
+                      
+            <td> <button type="button" class="btn btn-primary" (click)="editElement(item)" >Edit</button>  </td>
+            <td> <button type="button" class="btn btn-danger" (click)="deleteElement(item)" >Delete</button> </td>
+        </tr>
+    </tbody>
+</table> 

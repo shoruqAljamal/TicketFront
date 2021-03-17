@@ -1,38 +1,70 @@
 <div class="card" style="position:absolute;top:15%;left:20%; width:60%">
     <h4 class="card-header">Register</h4>
     <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
             <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Username is required</div>
-                </div>
+                <label for="userName">User Name</label>
+                <input type="text"   id="userName" class="form-control" placeholder="Enter user Name" required formControlName="userName">
+                <ng-container *ngIf="userForm.controls.userName.invalid && (userForm.controls.userName.dirty || userForm.controls.userName.touched)"
+                  >
+                    <div class="errorDiv" *ngIf="userForm.controls.userName.errors?.required">
+                        admin is required.
+                    </div>
+
+                </ng-container>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                </div>
-            </div>
+                <input 
+                    formControlName="password"
+                    id="password" 
+                    type="password" 
+                    class="form-control">
+    
+                    <ng-container *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
+                    >
+                      <div class="errorDiv" *ngIf="userForm.controls.password.errors?.required">
+                          Password is required.
+                      </div>
+                  </ng-container>
+               </div>
+    
             <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary">
+                <label for="emailAddress">Email</label>
+                <input type="email"  id="emailAddress" class="form-control" placeholder="Enter email" required formControlName="emailAddress">
+                <ng-container  *ngIf="userForm.controls.emailAddress.invalid && (userForm.controls.emailAddress.dirty || userForm.controls.emailAddress.touched)"
+                    >
+                    <div  class="errorDiv" *ngIf="userForm.controls.emailAddress.errors?.email">
+                        Admin Email is Not Valid.
+                    </div>
+                    <div   class="errorDiv"  *ngIf="userForm.controls.emailAddress.errors?.required">
+                        Admin Email is Required.
+                    </div>
+
+                </ng-container>
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfBirth">Date Of Birth</label>
+                <input type="date"  class="form-control" id="dateOfBirth" formControlName="dateOfBirth">
+            </div>
+  
+            <div class="form-group">
+                <label for="gender">Gender</label>
+         <div> </div>
+                <label>
+                    <input style="margin-right: 3px;" type="radio" value="Male" formControlName="gender">
+                      <span style="margin-right: 5px;">Male</span>
+                  </label>
+                  <label>
+                    <input style="margin-right: 3px;" type="radio" value="Female" formControlName="gender">
+                      <span style="margin-right: 5px;">Female</span>
+                  </label>
+            </div>
+        
+            <div class="form-group">
+
+                <button style="margin-left: 79%;" [disabled]="!userForm.valid" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Register
                 </button>

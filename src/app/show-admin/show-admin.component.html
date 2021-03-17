@@ -1,1 +1,28 @@
-<p>show-admin works!</p>
+<div class="container" style="padding: 4%;">  
+    <div class="row" style="padding: 2%;"> 
+
+        <div class="col-3"> <h3> {{user?.userName | titlecase}} </h3> </div>
+        <div class="col-6"> </div>  
+        <div class="col-3">
+         <button type="button" class="btn btn-success" style="margin-left: 45% ;width:150px;" (click)="addAdmin()" >Add New Admin </button>
+        
+       </div>
+    </div>
+    <!-- <div class="row" style="padding: 2%;"> 
+        <div class="col-10">
+        <input type="text"   id="searchUser" placeholder="Search for user Name" (keyup)="onKey($event)">
+        </div>
+    </div> -->
+    <!-- <form [formGroup]="form">
+        <select formControlName="searchedUser" id="searchedUser" (change)="selectChangeHandler($event)">
+          <option *ngFor="let user of searchedUser; let i = index" [value]="user.id">
+            {{user.userName}}
+          </option>
+        </select>
+      </form> -->
+
+    <app-combo-box [list]="users"></app-combo-box>
+    <!-- <app-my-tabel *ngIf="showTable" [columnsName]="columnsName" [columnsVariable] ="columnsVariable" [data]="tickets" > </app-my-tabel>   -->
+
+
+</div> 

@@ -9,6 +9,8 @@ import { ApiService } from './api-service';
 export class TicketServiceService {
 
   Api = '/Ticket/';
+  API_URL: string = 'https://localhost:44355/api/Ticket/';
+  http: any;
   constructor(public apiService:ApiService,
    ) { }
 
@@ -18,6 +20,14 @@ export class TicketServiceService {
 getById(): Observable<Ticket[]> {
   return this.apiService.get<Ticket>(this.Api+"GetTicketById/");
 }
+getByUserId(id:number): Observable<Ticket[]>
+{
+  return this.apiService.get<Ticket>(this.Api + "GetTicketsByUserId/"+id);
+}
+getTicket(ticketId){
+  return this.http.get(`${this.API_URL + 'tickets'}/${ticketId}`) 
+ }
+
   post(input : Ticket) :Observable<Ticket> {
     return this.apiService.post(this.Api+"AddTicket",input);
 }

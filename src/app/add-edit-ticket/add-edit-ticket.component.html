@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h4 *ngIf="editMode" class="modal-title">Edit Ticket</h4>
+    <h4 *ngIf="!editMode" class="modal-title">Add new Ticket</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit(ticketForm.value)">
+    <div class="modal-body">
+
+            <div class="form-group">
+                <label for="name">Ticket Name</label>
+                <input type="text"   id="name" class="form-control" placeholder="Enter Ticket Name"  required formControlName="name">
+                <ng-container *ngIf="ticketForm.controls.name.invalid && (ticketForm.controls.name.dirty || ticketForm.controls.name.touched)">
+                    <div class="errorDiv" *ngIf="ticketForm.controls.name.errors?.required">
+                        Name is required.
+                    </div>
+
+                </ng-container>
+            </div>
+            
+            <div class="form-group">
+                <label for="travelDate">Travel Date</label>
+                <input type="date"  class="form-control" id="travelDate" formControlName="travelDate">
+            </div>
+            <div class="form-group">
+                <label for="expDate">Exp Date</label>
+                <input type="date"  class="form-control" id="expDate" formControlName="expDate">
+            </div>
+            <div class="form-group">
+                <label for="startingLocation">Starting Location</label>
+                <input type="text"  class="form-control" id="startingLocation" formControlName="startingLocation">
+            </div>
+            <div class="form-group">
+                <label for="destinationLocation">Destination Location</label>
+                <input type="text"  class="form-control" id="destinationLocation" formControlName="destinationLocation">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text"  class="form-control" id="description" formControlName="description">
+            </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button type="submit" class="btn btn-success" [disabled]="!ticketForm.valid">Save</button>
+            <button type="button" class="btn btn-danger "  (click)="activeModal.dismiss('cancel click')" style="margin:0 2px">Cancel</button>
+        </div>
+    </div>
+</form>
+
+

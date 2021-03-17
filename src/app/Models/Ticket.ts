@@ -1,6 +1,4 @@
 export interface Ticket{
-
- 
     id : number;
     name : string;
     travelDate : Date;

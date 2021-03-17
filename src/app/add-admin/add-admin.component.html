@@ -1,0 +1,72 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add new Admin </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="adminForm" (ngSubmit)="onSubmit(adminForm.value)">
+    <div class="modal-body">
+
+            <div class="form-group">
+                <label for="adminName">Admin Name</label>
+                <input type="text"   id="adminName" class="form-control" placeholder="Enter admin Name" required formControlName="adminName">
+                <ng-container *ngIf="adminForm.controls.adminName.invalid && (adminForm.controls.adminName.dirty || adminForm.controls.adminName.touched)"
+                  >
+                    <div class="errorDiv" *ngIf="adminForm.controls.adminName.errors?.required">
+                        admin is required.
+                    </div>
+
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    formControlName="password"
+                    id="password" 
+                    type="password" 
+                    class="form-control">
+    
+                    <ng-container *ngIf="adminForm.controls.password.invalid && (adminForm.controls.password.dirty || adminForm.controls.password.touched)"
+                    >
+                      <div class="errorDiv" *ngIf="adminForm.controls.password.errors?.required">
+                          Password is required.
+                      </div>
+                  </ng-container>
+               </div>
+    
+            <div class="form-group">
+                <label for="emailAddress">Admin Email</label>
+                <input type="email"  id="emailAddress" class="form-control" placeholder="Enter email" required formControlName="emailAddress">
+                <ng-container  *ngIf="adminForm.controls.emailAddress.invalid && (adminForm.controls.emailAddress.dirty || adminForm.controls.emailAddress.touched)"
+                    >
+                    <div  class="errorDiv" *ngIf="adminForm.controls.emailAddress.errors?.email">
+                        Admin Email is Not Valid.
+                    </div>
+                    <div   class="errorDiv"  *ngIf="adminForm.controls.emailAddress.errors?.required">
+                        Admin Email is Required.
+                    </div>
+
+                </ng-container>
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfBirth">Date Of Birth</label>
+                <input type="date"  class="form-control" id="dateOfBirth" formControlName="dateOfBirth">
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <input type="text"  class="form-control" id="gender" formControlName="gender">
+            </div>
+      
+
+    </div>
+    <div class="modal-footer">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button type="submit" class="btn btn-success" [disabled]="!adminForm.valid">Save</button>
+            <button type="button" class="btn btn-danger "  (click)="activeModal.dismiss('cancel click')" style="margin:0 2px">Cancel</button>
+        </div>
+    </div>
+</form>
+
+

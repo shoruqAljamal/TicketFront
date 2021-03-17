@@ -16,8 +16,8 @@ export class UserServiceService {
   getAll(): Observable<User[]> {
     return this.apiService.get<User>(this.Api + "GetAllUsers");
 }
-getById(): Observable<User[]> {
-  return this.apiService.get<User>(this.Api+"GetUserById/");
+getById(id : number): Observable<User> {
+  return this.apiService.get<User>(this.Api+"GetUserById/"+id);
 }
   post(input : User) :Observable<User> {
     return this.apiService.post(this.Api+"AddUser",input);
