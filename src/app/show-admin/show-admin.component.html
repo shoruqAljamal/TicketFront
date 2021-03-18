@@ -21,8 +21,7 @@
         </select>
       </form> -->
 
-    <app-combo-box [list]="users"></app-combo-box>
-    <!-- <app-my-tabel *ngIf="showTable" [columnsName]="columnsName" [columnsVariable] ="columnsVariable" [data]="tickets" > </app-my-tabel>   -->
-
+    <app-combo-box [list]="users" [filterType]="'userName'" (selectedItemEvnet)="showMyTable($event)"></app-combo-box>
+    <app-my-tabel *ngIf="showTable" [columnsName]="columnsName" [columnsVariable] ="columnsVariable" [data]="tickets" > </app-my-tabel>  
 
 </div> 

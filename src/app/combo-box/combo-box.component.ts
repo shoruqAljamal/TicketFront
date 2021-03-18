@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Ticket } from '../Models/Ticket';
 import { User } from '../Models/User';
 import { TicketServiceService } from '../Services/ticket-service.service';
@@ -10,7 +10,9 @@ import { TicketServiceService } from '../Services/ticket-service.service';
 })
 export class ComboBoxComponent implements OnInit {
 
-  @Input() list: User[];
+  @Input() list: any[];
+  @Input() filterType : string;
+  @Output('selectedItemEvnet') selectedItemEvnet = new EventEmitter();
   listn: string[] =[];
 
   // two way binding for input text
@@ -21,20 +23,16 @@ export class ComboBoxComponent implements OnInit {
   selectedIndex = -1;
 
   // the list to be shown after filtering
-  filteredList: User[] = [];
-  columnsName: string[]=[];
-  columnsVariable: string[]=[];
-  tickets:Ticket[]=[];
+  filteredList: any[] = [];
   selectedUserId: number;
-  showTable: boolean =false;
+ 
 
-  constructor(private ticketService:TicketServiceService) { }
+  constructor() { }
 
    ngOnInit() {
 
     this.filteredList = this.list;
-    this.columnsName =[ "#" , "Name","Gender", "Date Of Birth","",""];
-    this.columnsVariable =["name","description","travelDate"];
+
     
   }
 
@@ -44,16 +42,16 @@ export class ComboBoxComponent implements OnInit {
     this.listHidden = false;
     // this.selectedIndex = 0;
     if (!this.listHidden && this.inputItem !== undefined) {
-      this.filteredList = this.list.filter((item) => item.userName.toLowerCase().startsWith(this.inputItem.toLowerCase()));
+      this.filteredList = this.list.filter((item) => item[this.filterType].toLowerCase().startsWith(this.inputItem.toLowerCase()));
     }
   }
 
   // // select highlighted item when enter is pressed or any item that is clicked
-  selectItem(ind) {
-
-    this.inputItem= this.filteredList[ind].userName;
+  selectItem(index) {
+    this.selectedItemEvnet.emit( this.filteredList[index]);
+    this.inputItem= this.filteredList[index][this.filterType];
     this.listHidden = true;
-    this.selectedIndex = ind;
+    this.selectedIndex = index;
     
   }
 
@@ -93,17 +91,17 @@ export class ComboBoxComponent implements OnInit {
     } 
   }
 
-  selectChangeHandler(event: any) {
-    //update the ui
-    this.selectedUserId = event.target.value;
-    this.ticketService.getByUserId(this.selectedUserId).subscribe(e=>{
-    this.tickets=e;
-    //console.log(this.selectedUser);
-    this.showTable=true;
-    }
-    );
+  // selectChangeHandler(event: any) {
+  //   //update the ui
+  //   this.selectedUserId = event.target.value;
+  //   this.ticketService.getByUserId(this.selectedUserId).subscribe(e=>{
+  //   this.tickets=e;
+  //   //console.log(this.selectedUser);
+  //   this.showTable=true;
+  //   }
+  //   );
 
-  }
+  // }
 
 
   // show or hide the dropdown list when input is focused or moves out of focus

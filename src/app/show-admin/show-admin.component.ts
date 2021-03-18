@@ -102,5 +102,15 @@ export class ShowAdminComponent implements OnInit {
     const modalRef = this.modalService.open(AddAdminComponent, { size: 'lg' });
 
   }
+  showMyTable(user){
+    //console.log(user);
+
+    this.ticketService.getByUserId(user.id).subscribe(e=>{
+    this.tickets=e;
+    //console.log(this.selectedUser);
+    this.showTable=true;
+    }
+    );
+  }
 
 }
